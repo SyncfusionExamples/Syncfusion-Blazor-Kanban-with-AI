@@ -10,8 +10,8 @@
 		<PackageReference Include="Azure.AI.OpenAI" Version="2.0.0" />
 		<PackageReference Include="Microsoft.Extensions.AI.Ollama" Version="9.0.0-preview.9.24556.5" />
 		<PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="9.0.0-preview.9.24556.5" />
-		<PackageReference Include="Syncfusion.Blazor.Kanban" Version="100.2.1" />
-		<PackageReference Include="Syncfusion.Blazor.Themes" Version="100.2.1" />
+		<PackageReference Include="Syncfusion.Blazor.Kanban" Version="27.2.4" />
+		<PackageReference Include="Syncfusion.Blazor.Themes" Version="27.2.4" />
 	</ItemGroup>
 
 </Project>
