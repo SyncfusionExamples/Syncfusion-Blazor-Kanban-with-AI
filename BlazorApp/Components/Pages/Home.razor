@@ -1,0 +1,143 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+@using Syncfusion.Blazor.Kanban
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.Notifications
+@using Syncfusion.Blazor.SplitButtons
+@using BlazorApp.Models
+
+@if (IsHomepage)
+{
+    <div class="row" id="customcontainer">
+        <div class="col-12 text-center my-3">
+            <h3>AI Smart Task Suggestion</h3>
+        </div>
+        <div class="col-12 text-center my-3">
+            <div class="d-flex justify-content-center">
+                <div class="col-12 col-md-6 d-flex cuscol-1 justify-content-center">
+                    <div style="width:100%; max-width: 500px;">
+                        <!-- Syncfusion TextBox for Project Details -->
+                        <div class="e-rte-label1">
+                            <label>Project Details</label>
+                        </div>
+                        <div class="e-rte-field" style="margin: 10px">
+                            <SfTextBox @bind-Value="@ProjectName" Multiline=true />
+                        </div>
+
+                        <!-- Syncfusion TextBox for Task Count -->
+                        <div class="e-rte-label2">
+                            <label>Number of tasks</label>
+                        </div>
+                        <div class="e-rte-field" style="margin: 10px">
+                            <SfTextBox @bind-Value="@TaskCount" min="1" Type="InputType.Number" />
+                        </div>
+
+                        <!-- Syncfusion ProgressButton to trigger task generation -->
+                        <div class="d-flex justify-content-center" style="margin: 10px;">
+                            <SfProgressButton Content="@ContentGenerateTask" OnClick="@GenerateTasks" Duration=1000>
+                                <ProgressButtonEvents OnBegin="BeginGenerateTasks" OnEnd="EndGenerateTasks"></ProgressButtonEvents>
+                            </SfProgressButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row" id="toast-kanban-observable">
+        <div class="col-12 text-center my-3">
+            <h3>Kanban Board</h3>
+            <div style="float: right;">
+                <!-- Syncfusion Button to open project details dialog -->
+                <SfButton OnClick="OpenProjectDetailsDialog">Add New Projects</SfButton>
+            </div>
+        </div>
+        <div>
+            <!-- Syncfusion Kanban board to display tasks -->
+            <SfKanban TValue="SmartSuggestionDataModel" KeyField="Status" DataSource="@SmartSuggestions">
+                <KanbanColumns>
+                    <KanbanColumn HeaderText="To Do" KeyField="@(new List<string>() {"Open"})"></KanbanColumn>
+                    <KanbanColumn HeaderText="In Progress" KeyField="@(new List<string>() {"InProgress"})"></KanbanColumn>
+                    <KanbanColumn HeaderText="Review" KeyField="@(new List<string>() {"Review"})"></KanbanColumn>
+                    <KanbanColumn HeaderText="Done" KeyField="@(new List<string>() {"Close"})"></KanbanColumn>
+                </KanbanColumns>
+                <KanbanCardSettings HeaderField="Title" ContentField="Description" GrabberField="Color">
+                    <Template>
+                        @{
+                            SmartSuggestionDataModel card = (SmartSuggestionDataModel)context;
+                            <div class="card-template">
+                                <div class="e-card-header">
+                                    <div class="e-card-header-caption">
+                                        <div class="e-card-header-title e-tooltip-text">@card.Title</div>
+                                    </div>
+                                </div>
+                                <div class="e-card-content">
+                                    <div class="e-text e-tooltip-text">@card.Description</div>
+                                </div>
+                                <div class="e-card-footer">
+                                    @{
+                                        <div class="e-card-tag e-tooltip-text">@card.StoryPoints</div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </Template>
+                </KanbanCardSettings>
+            </SfKanban>
+        </div>
+    </div>
+}
+
+<!-- Syncfusion Toast for showing messages -->
+<SfToast @ref="ToastObj" ID="toast_type" Target="@ToastTarget" ShowCloseButton="true">
+    <ToastPosition X="Right" Y="Top" />
+</SfToast>
+
+<!-- Syncfusion Dialog for project details input -->
+<SfDialog ShowCloseIcon="true" IsModal="true" Width="400px" @bind-Visible="@IsProjectDetailsDialogEnabled" CssClass="custom-dialog">
+    <DialogTemplates>
+        <Header>AI Smart Task Suggestion</Header>
+        <Content>
+            <div class="custom-row-1">
+                <div class="col-12 d-flex cuscol-1 justify-content-start e-left">
+                    <div class="w-100">
+                        <!-- Syncfusion TextBox for Project Details in Dialog -->
+                        <div class="e-rte-label1" style="margin: 10px">
+                            <label>Project Details</label>
+                        </div>
+                        <div class="e-rte-field" style="margin: 10px">
+                            <SfTextBox @bind-Value="@ProjectName" Multiline=true />
+                        </div>
+
+                        <!-- Syncfusion TextBox for Task Count in Dialog -->
+                        <div class="e-rte-label2" style="margin: 10px; padding-top: 20px;">
+                            <label>Number of tasks</label>
+                        </div>
+                        <div class="e-rte-field" style="margin: 10px">
+                            <SfTextBox @bind-Value="@TaskCount" min="1" Type="InputType.Number" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Content>
+        <FooterTemplate>
+            <div class="custom-row-2">
+                <div class="col-12 d-flex cuscol-0">
+                    <div class="w-100">
+                        <!-- Syncfusion ProgressButton to trigger task generation from dialog -->
+                        <SfProgressButton Content="@ContentGenerateTask" OnClick="@GenerateTasks" EnableProgress="false">
+                            <ProgressButtonEvents OnBegin="BeginGenerateTasks" OnEnd="EndGenerateTasks"></ProgressButtonEvents>
+                        </SfProgressButton>
+                    </div>
+                </div>
+            </div>
+        </FooterTemplate>
+    </DialogTemplates>
+</SfDialog>
+
+
