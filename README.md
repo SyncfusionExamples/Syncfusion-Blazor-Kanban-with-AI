@@ -11,6 +11,14 @@ This project demonstrates the integration of **Microsoft.Extensions.AI** with **
 ![Gif image of Kanban-with-AI](BlazorApp/wwwroot/SmartKanban.gif)
 
 ---
+## Prerequisites
+
+Before you begin, ensure you have the following:
+
+1. [**Visual Studio 2022 with the ASP.NET and web development workload**](https://visualstudio.microsoft.com/vs/) installed.
+2. **[.NET 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) or [later](https://dotnet.microsoft.com/en-us/download)**.
+3. An [**OpenAI**](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key) or [**Azure OpenAI**](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal) account to use the AI models.
+---
 
 ## Steps to Run the Project
 
