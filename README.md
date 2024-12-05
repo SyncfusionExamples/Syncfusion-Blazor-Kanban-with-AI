@@ -8,7 +8,6 @@ This repo demonstrate the sample for AI Integration with Syncfusion Blazor Kanba
 
 This project demonstrates the integration of **Microsoft.Extensions.AI** with **Syncfusion Blazor Kanban component**. By integrating AI, tasks can be automatically generated based on user input, displayed on a Kanban board, and managed with smart suggestions that adapt to the project's needs. This integration streamlines task management, making it more efficient, intuitive, and responsive to changes in real-time.
 
-
 ![Gif image of Kanban-with-AI](BlazorApp/wwwroot/SmartKanban.gif)
 
 ---
@@ -75,4 +74,6 @@ dotnet run
 
 ### 5. Access the Application
 Once the application starts, open your browser and navigate to the provided URL. You can now interact with the AI-powered task management system.
+
+![Gif image of Kanban-with-AI](BlazorApp/wwwroot/SmartKanban.gif)
 
